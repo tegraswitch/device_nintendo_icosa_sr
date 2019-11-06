@@ -59,8 +59,9 @@ endif
 PRODUCT_PACKAGES += \
     DeviceSettingsSR
 
-# Joycon setup
+# Joycons
 PRODUCT_PACKAGES += \
+    joycond \
     jc_setup
 
 # Kernel
