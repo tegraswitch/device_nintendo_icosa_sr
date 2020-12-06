@@ -16,6 +16,9 @@
 
 package org.lineageos.settings.device;
 
+import java.lang.System;
+
+import android.os.SystemProperties;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +26,8 @@ import android.content.Intent;
 public class BootCompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        context.startService(new Intent(context, DisplayService.class));
+        if (SystemProperties.get("ro.product.device", "").equals("icosa")) {
+            context.startService(new Intent(context, DockService.class));
+        }
     }
 }

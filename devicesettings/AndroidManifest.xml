@@ -4,6 +4,7 @@
       android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CONTROL_KEYGUARD" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
     <uses-sdk
@@ -18,7 +19,7 @@
         android:directBootAware="true"
         android:persistent="true">
 
-        <service android:name=".DisplayService"
+        <service android:name=".DockService"
             android:enabled="true"/>
 
         <receiver android:name=".BootCompletedReceiver">
