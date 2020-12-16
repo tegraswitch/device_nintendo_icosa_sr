@@ -16,12 +16,10 @@
 
 package org.lineageos.settings.device;
 
-import java.lang.System;
-
-import android.os.SystemProperties;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemProperties;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     @Override

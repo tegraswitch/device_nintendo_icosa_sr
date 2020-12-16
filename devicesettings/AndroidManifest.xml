@@ -10,6 +10,8 @@
     <uses-sdk
         android:minSdkVersion="28"
         android:targetSdkVersion="28" />
+	
+	<protected-broadcast android:name="com.lineage.devicesettings.UPDATE_POWER" />
 
     <application
         android:icon="@mipmap/ic_launcher_settings"
@@ -18,6 +20,7 @@
         android:defaultToDeviceProtectedStorage="true"
         android:directBootAware="true"
         android:persistent="true">
+
 
         <service android:name=".DockService"
             android:enabled="true"/>
