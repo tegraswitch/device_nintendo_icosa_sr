@@ -66,24 +66,20 @@ public class DockService extends Service {
         private boolean mPreviousOverlayDisabled = false;
 
         private void updatePowerState(Context context, boolean connected) {
-            SharedPreferences sharedPrefs = context.getSharedPreferences("org.lineageos.settings.device_preferences", context.MODE_PRIVATE);
+            final SharedPreferences sharedPrefs = context.getSharedPreferences("org.lineageos.settings.device_preferences", context.MODE_PRIVATE);
             final boolean perfMode = sharedPrefs.getBoolean("perf_mode", false);
 
             if (perfMode) {
                 if (connected) {
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_MAX_PERF);
-                    Log.i(TAG, "HDMI state update3");
                 } else {
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_OPTIMIZED);
-                    Log.i(TAG, "HDMI state update2");
                 }
             } else {
                 if (connected) {
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_OPTIMIZED);
-                    Log.i(TAG, "HDMI state update1");
                 } else {
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_BATTERY_SAVER);
-                    Log.i(TAG, "HDMI state update");
                 }
             }
         }
@@ -118,7 +114,7 @@ public class DockService extends Service {
         }
 
         public void init() {
-            IntentFilter filter = new IntentFilter();
+            final IntentFilter filter = new IntentFilter();
 
             filter.addAction(WindowManagerPolicyConstants.ACTION_HDMI_PLUGGED);
             filter.addAction(Intent.ACTION_SCREEN_ON);
@@ -129,7 +125,7 @@ public class DockService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
+            final String action = intent.getAction();
 
             switch (action) {
                 case WindowManagerPolicyConstants.ACTION_HDMI_PLUGGED:
@@ -139,13 +135,13 @@ public class DockService extends Service {
 
                     // Force docked display size to avoid apps being forced to the resolution of the internal panel
                     try {
-						if (mExternalDisplayConnected) {
-							Point displaySize = new Point();
-							mWindowManager.getBaseDisplaySize(1, displaySize);
-							mWindowManager.setForcedDisplaySize(0, displaySize.y, displaySize.x);
-						} else {
-							mWindowManager.clearForcedDisplaySize(0);
-						}
+                        if (mExternalDisplayConnected) {
+                            Point displaySize = new Point();
+                            mWindowManager.getBaseDisplaySize(1, displaySize);
+                            mWindowManager.setForcedDisplaySize(0, displaySize.x, displaySize.y);
+                        } else {
+                            mWindowManager.clearForcedDisplaySize(0);
+                        }
                     } catch (RemoteException ex) {
                         Log.w(TAG, "Failed to set display resolution");
                     }
