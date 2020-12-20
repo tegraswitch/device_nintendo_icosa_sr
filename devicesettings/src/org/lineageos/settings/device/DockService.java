@@ -26,6 +26,7 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.UserHandle;
 import android.util.Log;
 import android.view.IWindowManager;
 import android.view.WindowManagerPolicyConstants;
@@ -136,11 +137,20 @@ public class DockService extends Service {
                     // Force docked display size to avoid apps being forced to the resolution of the internal panel
                     try {
                         if (mExternalDisplayConnected) {
-                            Point displaySize = new Point();
+                            final Point displaySize = new Point();
                             mWindowManager.getBaseDisplaySize(1, displaySize);
                             mWindowManager.setForcedDisplaySize(0, displaySize.x, displaySize.y);
+
+                            // Rescale density based off standard 1920x1080 @ 320dpi
+                            mWindowManager.setForcedDisplayDensityForUser(1, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
                         } else {
                             mWindowManager.clearForcedDisplaySize(0);
+
+                            final Point displaySize = new Point();
+                            mWindowManager.getBaseDisplaySize(0, displaySize);
+
+                            // Rescale density based off standard 1920x1080 @ 320dpi
+                            mWindowManager.setForcedDisplayDensityForUser(1, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
                         }
                     } catch (RemoteException ex) {
                         Log.w(TAG, "Failed to set display resolution");
