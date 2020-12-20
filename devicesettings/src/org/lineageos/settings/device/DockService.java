@@ -64,7 +64,6 @@ public class DockService extends Service {
 
     final class Receiver extends BroadcastReceiver {
         private boolean mExternalDisplayConnected = false;
-        private boolean mPreviousOverlayDisabled = false;
 
         private void updatePowerState(Context context, boolean connected) {
             final SharedPreferences sharedPrefs = context.getSharedPreferences("org.lineageos.settings.device_preferences", context.MODE_PRIVATE);
@@ -85,28 +84,11 @@ public class DockService extends Service {
             }
         }
 
-        private void updateOverlayState(boolean connected) {
-            final boolean desiredOverlayState = connected || mPreviousOverlayDisabled;
-
+        private void setDisableHwOverlays(boolean disable) {
             try {
-                if (connected) {
-                    // Save old state if newly docked
-                    final Parcel data = Parcel.obtain();
-                    final Parcel reply = Parcel.obtain();
-                    data.writeInterfaceToken(SURFACE_COMPOSER_INTERFACE_KEY);
-                    mSurfaceFlinger.transact(SURFACE_FLINGER_READ_CODE, data, reply, 0);
-                    @SuppressWarnings("unused") final int showCpu = reply.readInt();
-                    @SuppressWarnings("unused") final int enableGL = reply.readInt();
-                    @SuppressWarnings("unused") final int showUpdates = reply.readInt();
-                    @SuppressWarnings("unused") final int showBackground = reply.readInt();
-                    mPreviousOverlayDisabled = (reply.readInt() == 1);
-                    reply.recycle();
-                    data.recycle();
-                }
-
                 final Parcel sendData = Parcel.obtain();
                 sendData.writeInterfaceToken(SURFACE_COMPOSER_INTERFACE_KEY);
-                sendData.writeInt(desiredOverlayState ? 1 : 0);
+                sendData.writeInt(disable ? 1 : 0);
                 mSurfaceFlinger.transact(SURFACE_FLINGER_DISABLE_OVERLAYS_CODE, sendData, null, 0);
                 sendData.recycle();
             } catch (RemoteException ex) {
@@ -156,8 +138,8 @@ public class DockService extends Service {
                         Log.w(TAG, "Failed to set display resolution");
                     }
 
-                    // Disable HW overlays on dock as they are broken in HWC
-                    updateOverlayState(mExternalDisplayConnected);
+                    // Always disable HW overlays as they are fairly broken
+                    setDisableHwOverlays(true);
 
                     updatePowerState(context, mExternalDisplayConnected);
 
