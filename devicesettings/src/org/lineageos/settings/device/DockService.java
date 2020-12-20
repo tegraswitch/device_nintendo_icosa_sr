@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.hardware.display.DisplayManager;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.RemoteException;
@@ -44,6 +45,7 @@ public class DockService extends Service {
 
     final private Receiver mReceiver = new Receiver();
     final private NvAppProfiles mAppProfiles = new NvAppProfiles(this);
+    private DisplayManager mDisplayManager;
     private IBinder mSurfaceFlinger;
     private IWindowManager mWindowManager;
 
@@ -55,6 +57,7 @@ public class DockService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
         mSurfaceFlinger = ServiceManager.getService(SURFACE_FLINGER_SERVICE_KEY);
         mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
         mReceiver.init();
@@ -119,20 +122,22 @@ public class DockService extends Service {
                     // Force docked display size to avoid apps being forced to the resolution of the internal panel
                     try {
                         if (mExternalDisplayConnected) {
+                            final int externalDisplayId = mDisplayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)[0].getDisplayId();
+
                             final Point displaySize = new Point();
-                            mWindowManager.getBaseDisplaySize(1, displaySize);
+                            mWindowManager.getInitialDisplaySize(externalDisplayId, displaySize);
                             mWindowManager.setForcedDisplaySize(0, displaySize.x, displaySize.y);
 
                             // Rescale density based off standard 1920x1080 @ 320dpi
-                            mWindowManager.setForcedDisplayDensityForUser(1, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
+                            mWindowManager.setForcedDisplayDensityForUser(externalDisplayId, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
                         } else {
                             mWindowManager.clearForcedDisplaySize(0);
 
                             final Point displaySize = new Point();
                             mWindowManager.getBaseDisplaySize(0, displaySize);
 
-                            // Rescale density based off standard 1920x1080 @ 320dpi
-                            mWindowManager.setForcedDisplayDensityForUser(1, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
+                            // Rescale internal panel density based off standard 1920x1080 @ 320dpi
+                            mWindowManager.setForcedDisplayDensityForUser(0, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
                         }
                     } catch (RemoteException ex) {
                         Log.w(TAG, "Failed to set display resolution");
