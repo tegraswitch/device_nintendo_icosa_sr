@@ -32,6 +32,9 @@ import android.util.Log;
 import android.view.IWindowManager;
 import android.view.WindowManagerPolicyConstants;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import com.nvidia.NvAppProfiles;
 import com.nvidia.NvConstants;
 
@@ -68,11 +71,26 @@ public class DockService extends Service {
     final class Receiver extends BroadcastReceiver {
         private boolean mExternalDisplayConnected = false;
 
+        private void setFanProfile(String profile) {
+            try {
+                final FileOutputStream pwmProfile = new FileOutputStream("/sys/devices/pwm-fan/fan_profile");
+                pwmProfile.write(profile.getBytes());
+                pwmProfile.close();
+                final FileOutputStream estProfile = new FileOutputStream("/sys/devices/thermal-fan-est/fan_profile");
+                estProfile.write(profile.getBytes());
+                estProfile.close();
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to update fan profile");
+            }
+        }
+
         private void updatePowerState(Context context, boolean connected) {
             final SharedPreferences sharedPrefs = context.getSharedPreferences("org.lineageos.settings.device_preferences", context.MODE_PRIVATE);
             final boolean perfMode = sharedPrefs.getBoolean("perf_mode", false);
 
             if (perfMode) {
+                setFanProfile("docked");
+
                 if (connected) {
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_MAX_PERF);
                 } else {
@@ -80,8 +98,10 @@ public class DockService extends Service {
                 }
             } else {
                 if (connected) {
+                    setFanProfile("docked");
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_OPTIMIZED);
                 } else {
+                    setFanProfile("handheld");
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_BATTERY_SAVER);
                 }
             }
