@@ -70,6 +70,8 @@ public class DockService extends Service {
 
     final class Receiver extends BroadcastReceiver {
         private boolean mExternalDisplayConnected = false;
+        private int oldDisplayWidth = 1280;
+        private int oldDisplayHeight = 720;
 
         private void setFanProfile(String profile) {
             try {
@@ -137,25 +139,33 @@ public class DockService extends Service {
                 case WindowManagerPolicyConstants.ACTION_HDMI_PLUGGED:
                     Log.i(TAG, "HDMI state update");
 
-                    mExternalDisplayConnected = intent.getBooleanExtra(WindowManagerPolicyConstants.EXTRA_HDMI_PLUGGED_STATE, false);
+                    final boolean connected = intent.getBooleanExtra(WindowManagerPolicyConstants.EXTRA_HDMI_PLUGGED_STATE, false);
 
                     // Force docked display size to avoid apps being forced to the resolution of the internal panel
                     try {
-                        if (mExternalDisplayConnected) {
+                        if (connected) {
                             final int externalDisplayId = mDisplayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)[0].getDisplayId();
 
                             final Point displaySize = new Point();
+                            mWindowManager.getBaseDisplaySize(0, displaySize);
+                            oldDisplayWidth = displaySize.x;
+                            oldDisplayHeight = displaySize.y;
+
                             mWindowManager.getInitialDisplaySize(externalDisplayId, displaySize);
                             mWindowManager.setForcedDisplaySize(0, displaySize.x, displaySize.y);
 
                             // Rescale density based off standard 1920x1080 @ 320dpi
                             mWindowManager.setForcedDisplayDensityForUser(externalDisplayId, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
                         } else {
-                            mWindowManager.clearForcedDisplaySize(0);
+                            if (mExternalDisplayConnected) {
+                                mWindowManager.setForcedDisplaySize(0, oldDisplayWidth, oldDisplayHeight);
+                            }
                         }
                     } catch (RemoteException ex) {
                         Log.w(TAG, "Failed to set display resolution");
                     }
+
+                    mExternalDisplayConnected = connected;
 
                     // Always disable HW overlays as they are fairly broken
                     setDisableHwOverlays(true);
