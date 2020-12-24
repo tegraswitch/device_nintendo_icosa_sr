@@ -152,12 +152,6 @@ public class DockService extends Service {
                             mWindowManager.setForcedDisplayDensityForUser(externalDisplayId, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
                         } else {
                             mWindowManager.clearForcedDisplaySize(0);
-
-                            final Point displaySize = new Point();
-                            mWindowManager.getBaseDisplaySize(0, displaySize);
-
-                            // Rescale internal panel density based off standard 1920x1080 @ 320dpi
-                            mWindowManager.setForcedDisplayDensityForUser(0, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
                         }
                     } catch (RemoteException ex) {
                         Log.w(TAG, "Failed to set display resolution");

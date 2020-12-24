@@ -10,17 +10,12 @@
     <uses-sdk
         android:minSdkVersion="28"
         android:targetSdkVersion="28" />
-	
-	<protected-broadcast android:name="com.lineage.devicesettings.UPDATE_POWER" />
+
+    <protected-broadcast android:name="com.lineage.devicesettings.UPDATE_POWER" />
 
     <application
-        android:icon="@mipmap/ic_launcher_settings"
         android:label="@string/device_settings_app_name"
-        android:theme="@style/Theme.Main"
-        android:defaultToDeviceProtectedStorage="true"
-        android:directBootAware="true"
         android:persistent="true">
-
 
         <service android:name=".DockService"
             android:enabled="true"/>
@@ -51,10 +46,6 @@
             android:theme="@style/Theme.Main">
             <intent-filter>
                 <action android:name="com.android.settings.action.IA_SETTINGS" />
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <meta-data
                 android:name="com.android.settings.category"
