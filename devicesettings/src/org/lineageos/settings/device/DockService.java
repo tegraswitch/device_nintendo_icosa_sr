@@ -126,6 +126,7 @@ public class DockService extends Service {
 
             filter.addAction(WindowManagerPolicyConstants.ACTION_HDMI_PLUGGED);
             filter.addAction(Intent.ACTION_SCREEN_ON);
+            filter.addAction(Intent.ACTION_USER_PRESENT);
             filter.addAction(DisplayUtils.POWER_UPDATE_INTENT);
 
             registerReceiver(this, filter);
@@ -186,6 +187,7 @@ public class DockService extends Service {
                     }
                     break;
                 case DisplayUtils.POWER_UPDATE_INTENT:
+                case Intent.ACTION_USER_PRESENT:
                     updatePowerState(context, mExternalDisplayConnected);
                     break;
                 default:
