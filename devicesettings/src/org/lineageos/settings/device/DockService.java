@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.hardware.display.DisplayManager;
 import android.os.IBinder;
@@ -51,6 +52,7 @@ public class DockService extends Service {
     private DisplayManager mDisplayManager;
     private IBinder mSurfaceFlinger;
     private IWindowManager mWindowManager;
+    private boolean isTv;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -63,6 +65,7 @@ public class DockService extends Service {
         mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
         mSurfaceFlinger = ServiceManager.getService(SURFACE_FLINGER_SERVICE_KEY);
         mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
+        isTv = getPackageManager().hasSystemFeature(PackageManager.FEATURE_LEANBACK);
         mReceiver.init();
 
         return super.onStartCommand(intent, flags, startId);
@@ -145,21 +148,31 @@ public class DockService extends Service {
                     // Force docked display size to avoid apps being forced to the resolution of the internal panel
                     try {
                         if (connected) {
-                            final int externalDisplayId = mDisplayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)[0].getDisplayId();
+                            if (isTv) {
+                                // On ATV always force 1080p for UI when docked, external display also always uses id 0
+                                mWindowManager.setForcedDisplaySize(0, 1920, 1080);
+                                mWindowManager.setForcedDisplayDensityForUser(0, 320, UserHandle.USER_CURRENT);
+                            } else {
+                                final int externalDisplayId = mDisplayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)[0].getDisplayId();
+                                final Point displaySize = new Point();
+                                mWindowManager.getBaseDisplaySize(0, displaySize);
+                                oldDisplayWidth = displaySize.x;
+                                oldDisplayHeight = displaySize.y;
 
-                            final Point displaySize = new Point();
-                            mWindowManager.getBaseDisplaySize(0, displaySize);
-                            oldDisplayWidth = displaySize.x;
-                            oldDisplayHeight = displaySize.y;
+                                mWindowManager.getInitialDisplaySize(externalDisplayId, displaySize);
+                                mWindowManager.setForcedDisplaySize(0, displaySize.x, displaySize.y);
 
-                            mWindowManager.getInitialDisplaySize(externalDisplayId, displaySize);
-                            mWindowManager.setForcedDisplaySize(0, displaySize.x, displaySize.y);
-
-                            // Rescale density based off standard 1920x1080 @ 320dpi
-                            mWindowManager.setForcedDisplayDensityForUser(externalDisplayId, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
+                                // Rescale density based off standard 1920x1080 @ 320dpi
+                                mWindowManager.setForcedDisplayDensityForUser(externalDisplayId, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
+                            }
                         } else {
                             if (mExternalDisplayConnected) {
-                                mWindowManager.setForcedDisplaySize(0, oldDisplayWidth, oldDisplayHeight);
+                                if (isTv) {
+                                    mWindowManager.clearForcedDisplaySize(0);
+                                    mWindowManager.clearForcedDisplayDensityForUser(0, UserHandle.USER_CURRENT);
+                                } else {
+                                    mWindowManager.setForcedDisplaySize(0, oldDisplayWidth, oldDisplayHeight);
+                                }
                             }
                         }
                     } catch (RemoteException ex) {
