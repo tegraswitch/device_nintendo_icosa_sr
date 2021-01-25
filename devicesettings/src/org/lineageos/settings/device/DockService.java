@@ -190,13 +190,15 @@ public class DockService extends Service {
                     Log.i(TAG, "Screen on");
                     DisplayUtils.setInternalDisplayState(!mExternalDisplayConnected);
 
-                    // Unlock device automatically if docked
+                    // Unlock device automatically if docked and reset res otherwise to work around broken HWC rotation
                     try {
                         if (mExternalDisplayConnected) {
                             mWindowManager.dismissKeyguard(null, null);
+                        } else {
+                            mWindowManager.clearForcedDisplaySize(0);
                         }
                     } catch (Exception ex) {
-                        Log.w(TAG, "Failed to dismiss keyguard");
+                        Log.w(TAG, "Failed to dismiss keyguard and reset resolution");
                     }
                     break;
                 case DisplayUtils.POWER_UPDATE_INTENT:
