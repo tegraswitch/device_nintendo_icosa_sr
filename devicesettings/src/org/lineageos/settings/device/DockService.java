@@ -41,8 +41,6 @@ import com.nvidia.NvConstants;
 
 public class DockService extends Service {
     private static final String TAG = DockService.class.getSimpleName();
-    private static final String SURFACE_COMPOSER_INTERFACE_KEY = "android.ui.ISurfaceComposer";
-    private static final String SURFACE_FLINGER_SERVICE_KEY = "SurfaceFlinger";
     private static final String NVCPL_SERVICE_KEY = "nvcpl";
     private static final int SURFACE_FLINGER_READ_CODE = 1010;
     private static final int SURFACE_FLINGER_DISABLE_OVERLAYS_CODE = 1008;
@@ -50,7 +48,6 @@ public class DockService extends Service {
     final private Receiver mReceiver = new Receiver();
     final private NvAppProfiles mAppProfiles = new NvAppProfiles(this);
     private DisplayManager mDisplayManager;
-    private IBinder mSurfaceFlinger;
     private IWindowManager mWindowManager;
     private boolean isTv;
 
@@ -63,7 +60,6 @@ public class DockService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mDisplayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
-        mSurfaceFlinger = ServiceManager.getService(SURFACE_FLINGER_SERVICE_KEY);
         mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
         isTv = getPackageManager().hasSystemFeature(PackageManager.FEATURE_LEANBACK);
         mReceiver.init();
@@ -109,18 +105,6 @@ public class DockService extends Service {
                     setFanProfile("handheld");
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_BATTERY_SAVER);
                 }
-            }
-        }
-
-        private void setDisableHwOverlays(boolean disable) {
-            try {
-                final Parcel sendData = Parcel.obtain();
-                sendData.writeInterfaceToken(SURFACE_COMPOSER_INTERFACE_KEY);
-                sendData.writeInt(disable ? 1 : 0);
-                mSurfaceFlinger.transact(SURFACE_FLINGER_DISABLE_OVERLAYS_CODE, sendData, null, 0);
-                sendData.recycle();
-            } catch (RemoteException ex) {
-                Log.w(TAG, "Failed to update HW overlay state");
             }
         }
 
@@ -180,9 +164,6 @@ public class DockService extends Service {
                     }
 
                     mExternalDisplayConnected = connected;
-
-                    // Always disable HW overlays as they are fairly broken
-                    setDisableHwOverlays(true);
 
                     updatePowerState(context, mExternalDisplayConnected);
 
