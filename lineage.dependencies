@@ -2,5 +2,9 @@
  {
    "repository": "android_device_nvidia_foster",
    "target_path": "device/nvidia/foster"
+ },
+ {
+   "repository": "android_kernel_nvidia_cypress-fmac-upstream",
+   "target_path": "kernel/nvidia/cypress-fmac-upstream"
  }
 ]

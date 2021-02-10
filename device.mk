@@ -31,3 +31,14 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml
 endif
+
+# Kernel
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+PRODUCT_PACKAGES += \
+    cypress-fmac-upstream
+endif
+
+# Loadable kernel modules
+PRODUCT_PACKAGES += \
+    lkm_sr.rc \
+    lkm_loader_sr
