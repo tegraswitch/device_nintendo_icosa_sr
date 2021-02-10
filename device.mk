@@ -45,6 +45,10 @@ PRODUCT_PACKAGES += \
     icosa_bt.rc
 endif
 
+# Device Settings
+PRODUCT_PACKAGES += \
+    DeviceSettingsSR
+
 # Kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 PRODUCT_PACKAGES += \
