@@ -27,5 +27,8 @@ ifeq ($(TARGET_PREBUILT_KERNEL),)
 TARGET_KERNEL_SOURCE := kernel/nvidia/linux-4.9_icosa/kernel/kernel-4.9
 endif
 
+# Partitions
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
+
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += device/nintendo/icosa_sr
