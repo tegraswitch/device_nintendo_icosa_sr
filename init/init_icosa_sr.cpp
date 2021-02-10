@@ -58,6 +58,10 @@ void vendor_load_properties()
 	ti.set_properties();
 	ti.set_fingerprints(tav);
 
+	if (!ti.vendor_context() && !ti.recovery_context() &&
+	    ti.property_get("ro.build.characteristics") == "tv")
+		ti.property_set("ro.sf.lcd_density", "214");
+
 	if (ti.recovery_context()) {
 		ti.recovery_links(parts);
 		ti.property_set("ro.product.vendor.model", ti.property_get("ro.product.model"));
