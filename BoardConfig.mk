@@ -21,3 +21,6 @@ TARGET_OTA_ASSERT_DEVICE := icosa
 
 # Bootloader versions
 TARGET_BOARD_INFO_FILE := device/nintendo/icosa_sr/board-info.txt
+
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += device/nintendo/icosa_sr

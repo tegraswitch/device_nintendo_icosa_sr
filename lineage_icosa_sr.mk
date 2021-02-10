@@ -19,6 +19,7 @@ $(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
 
 # Inherit device configuration for icosa_sr.
 include device/nvidia/foster/lineage.mk
+TARGET_INIT_VENDOR_LIB := //device/nintendo/icosa_sr:libinit_icosa_sr
 $(call inherit-product, device/nintendo/icosa_sr/full_icosa_sr.mk)
 
 PRODUCT_NAME := lineage_icosa_sr
