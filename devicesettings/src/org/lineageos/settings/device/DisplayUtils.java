@@ -35,6 +35,21 @@ public class DisplayUtils {
 
     public static final String POWER_UPDATE_INTENT = "com.lineage.devicesettings.UPDATE_POWER";
 
+    public static void setUsbDowngrade(boolean state) {
+        try {
+            FileOutputStream enableFile = new FileOutputStream("/sys/devices/70090000.xusb/downgrade_usb3");
+
+            if (state == true) {
+                enableFile.write("0xffffffff\n".getBytes());
+            } else {
+                enableFile.write("0\n".getBytes());
+            }
+            enableFile.close();
+        } catch (IOException e) {
+            Log.w(TAG, "Failed to write display state");
+        }
+    }
+ 
     public static void setInternalDisplayState(boolean state) {
         Log.d(TAG, "setInternalDisplayState: " + String.valueOf(state));
         try {

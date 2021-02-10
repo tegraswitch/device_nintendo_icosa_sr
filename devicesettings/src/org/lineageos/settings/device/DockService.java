@@ -109,6 +109,10 @@ public class DockService extends Service {
         }
 
         public void init() {
+            final SharedPreferences sharedPrefs = getSharedPreferences("org.lineageos.settings.device_preferences", MODE_PRIVATE);
+            final boolean forceUsb2 = sharedPrefs.getBoolean("force_usb2", false);
+            DisplayUtils.setUsbDowngrade(forceUsb2);
+
             final IntentFilter filter = new IntentFilter();
 
             filter.addAction(WindowManagerPolicyConstants.ACTION_HDMI_PLUGGED);

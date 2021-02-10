@@ -22,6 +22,8 @@
     <string name="perf_setting_summary">Modifies CPU and GPU clocks in order to get the best possible performance at the cost of higher battery wear and usage</string>
     <string name="perf_warning_title">WARNING</string>
     <string name="perf_warning_summary">This will decrease the lifespan of your console and its battery, potentially leading to instability.\n\nAre you sure you want to continue?</string>
+    <string name="usb2_setting_title">Force USB2</string>
+    <string name="usb2_setting_summary">Forces all USB3 devices to use USB2 instead. Increases signal quality for Bluetooth and 2.4GHz WiFi</string>
     <string name="mode_selection_title">Select Mode</string>
     <string name="mode_confirmation_title">Confirmation</string>
     <string name="mode_confirmation_summary">Are you sure you want to keep these display settings?\n\nWill revert in %1$d seconds</string>

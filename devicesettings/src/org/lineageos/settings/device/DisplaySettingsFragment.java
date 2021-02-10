@@ -243,8 +243,24 @@ public class DisplaySettingsFragment extends PreferenceFragment
             }
         });
 
+        SwitchPreference usb2Preference = new SwitchPreference(perfCategory.getContext());
+        usb2Preference.setTitle(R.string.usb2_setting_title);
+        usb2Preference.setSummary(R.string.usb2_setting_summary);
+        usb2Preference.setKey("force_usb2");
+        usb2Preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (((Boolean) newValue) != PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("force_usb2", false)) {
+                    DisplayUtils.setUsbDowngrade((Boolean) newValue);
+                }
+                return true;
+            }
+        });
+
+
         preferenceScreen.addPreference(perfCategory);
         perfCategory.addPreference(perfPreference);
+        perfCategory.addPreference(usb2Preference);
     }
 
     private void createDisplaySettings(PreferenceScreen preferenceScreen) {
