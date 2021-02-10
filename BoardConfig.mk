@@ -15,3 +15,9 @@
 #
 
 include device/nvidia/foster/BoardConfig.mk
+
+# Assert
+TARGET_OTA_ASSERT_DEVICE := icosa
+
+# Bootloader versions
+TARGET_BOARD_INFO_FILE := device/nintendo/icosa_sr/board-info.txt
