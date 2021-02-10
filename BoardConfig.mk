@@ -22,5 +22,10 @@ TARGET_OTA_ASSERT_DEVICE := icosa
 # Bootloader versions
 TARGET_BOARD_INFO_FILE := device/nintendo/icosa_sr/board-info.txt
 
+# Kernel
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+TARGET_KERNEL_SOURCE := kernel/nvidia/linux-4.9_icosa/kernel/kernel-4.9
+endif
+
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += device/nintendo/icosa_sr
