@@ -42,7 +42,8 @@ endif
 # Bluetooth
 ifeq ($(TARGET_TEGRA_BT),btlinux)
 PRODUCT_PACKAGES += \
-    icosa_bt.rc
+    icosa_bt.rc \
+    BCM4356A3
 endif
 
 # Device Settings
