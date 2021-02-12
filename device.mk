@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+TARGET_TEGRA_BT ?= btlinux
+
 include device/nvidia/shield-common/shield.mk
 
 $(call inherit-product, device/nvidia/foster/device.mk)
@@ -35,6 +37,12 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.managed_users.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.managed_users.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml
+endif
+
+# Bluetooth
+ifeq ($(TARGET_TEGRA_BT),btlinux)
+PRODUCT_PACKAGES += \
+    icosa_bt.rc
 endif
 
 # Kernel

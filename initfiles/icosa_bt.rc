@@ -1,0 +1,2 @@
+on property:ro.product.vendor.device=icosa
+    enable btlinux-1.0
