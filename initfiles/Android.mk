@@ -37,3 +37,12 @@ LOCAL_SRC_FILES            := lkm_sr.rc
 LOCAL_VENDOR_MODULE        := true
 LOCAL_MODULE_RELATIVE_PATH := init
 include $(BUILD_PREBUILT)
+
+# Goes on system due to needing `settings` and `svc`
+include $(CLEAR_VARS)
+LOCAL_MODULE        := wifi_reset
+LOCAL_SRC_FILES     := wifi_reset.sh
+LOCAL_MODULE_SUFFIX := .sh
+LOCAL_INIT_RC       := wifi_reset.rc
+LOCAL_MODULE_CLASS  := EXECUTABLES
+include $(BUILD_PREBUILT)

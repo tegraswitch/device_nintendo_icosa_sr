@@ -59,3 +59,7 @@ endif
 PRODUCT_PACKAGES += \
     lkm_sr.rc \
     lkm_loader_sr
+
+# Icosa WiFi reset script
+PRODUCT_PACKAGES += \
+    wifi_reset
