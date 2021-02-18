@@ -50,6 +50,10 @@ endif
 PRODUCT_PACKAGES += \
     DeviceSettingsSR
 
+# Joycon setup
+PRODUCT_PACKAGES += \
+    jc_setup
+
 # Kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 PRODUCT_PACKAGES += \
