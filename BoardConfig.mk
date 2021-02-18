@@ -22,6 +22,9 @@ TARGET_OTA_ASSERT_DEVICE := icosa
 # Bootloader versions
 TARGET_BOARD_INFO_FILE := device/nintendo/icosa_sr/board-info.txt
 
+# Manifest
+DEVICE_MANIFEST_FILE += device/nintendo/icosa_sr/manifest.xml
+
 # Kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 TARGET_KERNEL_SOURCE := kernel/nvidia/linux-4.9_icosa/kernel/kernel-4.9
@@ -29,6 +32,9 @@ endif
 
 # Partitions
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
+
+# IIO Sensor Defconfig
+BOARD_SENSORS_STMICRO_IIO_DEFCONFIG := device/nintendo/icosa_sr/sensors/sensors_icosa_defconfig
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += device/nintendo/icosa_sr

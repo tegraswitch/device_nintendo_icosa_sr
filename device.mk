@@ -61,6 +61,18 @@ PRODUCT_PACKAGES += \
     cypress-fmac-upstream
 endif
 
+# STMicroElectronics IMU
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-service \
+    android.hardware.sensors@1.0-impl \
+    sensors.stmicro \
+    icosa_sensors.rc
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.light.xml
+
 # Loadable kernel modules
 PRODUCT_PACKAGES += \
     lkm_sr.rc \
