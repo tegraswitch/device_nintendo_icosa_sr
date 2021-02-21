@@ -38,6 +38,14 @@ LOCAL_VENDOR_MODULE        := true
 LOCAL_MODULE_RELATIVE_PATH := init
 include $(BUILD_PREBUILT)
 
+include $(CLEAR_VARS)
+LOCAL_MODULE               := icosa_gatekeeper.rc
+LOCAL_MODULE_CLASS         := ETC
+LOCAL_SRC_FILES            := icosa_gatekeeper.rc
+LOCAL_VENDOR_MODULE        := true
+LOCAL_MODULE_RELATIVE_PATH := init
+include $(BUILD_PREBUILT)
+
 # Goes on system due to needing `settings` and `svc`
 include $(CLEAR_VARS)
 LOCAL_MODULE        := wifi_reset
