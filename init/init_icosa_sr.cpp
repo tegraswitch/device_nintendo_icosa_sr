@@ -48,8 +48,8 @@ void vendor_set_usb_product_ids(tegra_init *ti)
 void vendor_load_properties()
 {
 	//                                              device   name          model    id  sku boot device type                 api dpi
-	std::vector<tegra_init::devices> devices = { { "icosa", "icosa_emmc", "Switch", 20,  1, tegra_init::boot_dev_type::EMMC, 27, 214 },
-	                                             { "icosa", "icosa",      "Switch", 20,  0, tegra_init::boot_dev_type::SD,   27, 214 } };
+	std::vector<tegra_init::devices> devices = { { "icosa", "icosa_emmc", "Switch", 20,  1, tegra_init::boot_dev_type::EMMC, 27, 192 },
+	                                             { "icosa", "icosa",      "Switch", 20,  0, tegra_init::boot_dev_type::SD,   27, 192 } };
 	tegra_init::build_version tav = { "9", "PPR1.180610.011", "4199485_1739.5219" };
 	std::vector<std::string> parts = { "APP", "CAC", "LNX", "SOS", "UDA", "vendor", "DTB" };
 
@@ -60,7 +60,7 @@ void vendor_load_properties()
 
 	if (!ti.vendor_context() && !ti.recovery_context() &&
 	    ti.property_get("ro.build.characteristics") == "tv")
-		ti.property_set("ro.sf.lcd_density", "214");
+		ti.property_set("ro.sf.lcd_density", "192");
 
 	if (ti.recovery_context()) {
 		ti.recovery_links(parts);
