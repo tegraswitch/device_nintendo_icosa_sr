@@ -15,6 +15,7 @@
 #
 
 TARGET_TEGRA_BT ?= btlinux
+TARGET_SHIELDTECH_INPUTFLINGER := switchroot
 
 include device/nvidia/shield-common/shield.mk
 
