@@ -85,12 +85,24 @@ public class DockService extends Service {
             }
         }
 
+        private void setFanCoeffs(int dev1, int dev2) {
+            try {
+                final FileOutputStream coeffFile = new FileOutputStream("/sys/devices/thermal-fan-est/coeff");
+                coeffFile.write(String.format("[0] %d 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n", dev1).getBytes());
+                coeffFile.write(String.format("[1] %d 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n", dev2).getBytes());
+                coeffFile.close();
+            } catch (IOException e) {
+                Log.w(TAG, "Failed to update fan profile");
+            }
+        }
+
         private void updatePowerState(Context context, boolean connected) {
             final SharedPreferences sharedPrefs = context.getSharedPreferences("org.lineageos.settings.device_preferences", context.MODE_PRIVATE);
             final boolean perfMode = sharedPrefs.getBoolean("perf_mode", false);
 
             if (perfMode) {
                 setFanProfile("docked");
+                setFanCoeffs(95, 100);
 
                 if (connected) {
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_MAX_PERF);
@@ -100,9 +112,11 @@ public class DockService extends Service {
             } else {
                 if (connected) {
                     setFanProfile("docked");
+                    setFanCoeffs(95, 100);
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_OPTIMIZED);
                 } else {
                     setFanProfile("handheld");
+                    setFanCoeffs(100, 92);
                     mAppProfiles.setPowerMode(NvConstants.NV_POWER_MODE_BATTERY_SAVER);
                 }
             }
