@@ -23,17 +23,17 @@ LOCAL_VENDOR_MODULE := true
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE               := icosa_bt.rc
+LOCAL_MODULE               := lkm_sr.rc
 LOCAL_MODULE_CLASS         := ETC
-LOCAL_SRC_FILES            := icosa_bt.rc
+LOCAL_SRC_FILES            := lkm_sr.rc
 LOCAL_VENDOR_MODULE        := true
 LOCAL_MODULE_RELATIVE_PATH := init
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE               := lkm_sr.rc
+LOCAL_MODULE               := init.icosa_sr_common.rc
 LOCAL_MODULE_CLASS         := ETC
-LOCAL_SRC_FILES            := lkm_sr.rc
+LOCAL_SRC_FILES            := init.icosa_sr_common.rc
 LOCAL_VENDOR_MODULE        := true
 LOCAL_MODULE_RELATIVE_PATH := init
 include $(BUILD_PREBUILT)

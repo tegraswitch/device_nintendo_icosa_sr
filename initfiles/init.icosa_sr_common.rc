@@ -1,0 +1,5 @@
+on init
+    enable btlinux-1.0
+    setprop ro.hardware.gatekeeper none
+    setprop ro.hardware.sensors stmicro
+    setprop sys.io.scheduler deadline
