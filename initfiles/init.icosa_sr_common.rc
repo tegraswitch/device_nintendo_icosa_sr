@@ -3,3 +3,9 @@ on init
     setprop ro.hardware.gatekeeper none
     setprop ro.hardware.sensors stmicro
     setprop sys.io.scheduler deadline
+
+on early-init
+    write /proc/sys/kernel/sched_cfs_boost 100
+
+on property:sys.boot_completed=1
+    write /proc/sys/kernel/sched_cfs_boost 0
