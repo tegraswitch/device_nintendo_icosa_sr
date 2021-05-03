@@ -7,5 +7,9 @@ on init
 on early-init
     write /proc/sys/kernel/sched_cfs_boost 100
 
+on boot
+    chown system system /sys/devices/thermal-fan-est/coeff
+    chmod 0664 /sys/devices/thermal-fan-est/coeff
+
 on property:sys.boot_completed=1
     write /proc/sys/kernel/sched_cfs_boost 0
