@@ -1,2 +1,0 @@
-on init
-    setprop ro.hardware.gatekeeper none
