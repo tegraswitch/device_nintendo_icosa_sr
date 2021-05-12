@@ -121,12 +121,7 @@ endif
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-service \
     android.hardware.sensors@1.0-impl \
-<<<<<<< HEAD
     sensors.stmicro
-=======
-    sensors.stmicro \
-    icosa_sensors.rc
->>>>>>> 2ab05e6 (Enable Sensor HAL and set perms)
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.accelerometer.xml \
