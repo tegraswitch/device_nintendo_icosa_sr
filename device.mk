@@ -17,14 +17,18 @@
 TARGET_TEGRA_BT ?= btlinux
 TARGET_SHIELDTECH_INPUTFLINGER := switchroot
 
-include device/nvidia/shield-common/shield.mk
-
-$(call inherit-product, device/nvidia/foster/device.mk)
-
 ifneq ($(PRODUCT_IS_ATV),true)
+
 # System properties
 include $(LOCAL_PATH)/system_prop.mk
+endif
 
+$(call inherit-product, device/nvidia/foster/device.mk)
+include device/nvidia/shield-common/shield.mk
+
+ifneq ($(PRODUCT_IS_ATV),true)
+
+# Set product to tab
 PRODUCT_CHARACTERISTICS := tablet
 
 # Overlays
