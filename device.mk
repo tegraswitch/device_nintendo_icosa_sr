@@ -87,3 +87,7 @@ PRODUCT_PACKAGES += \
 # Icosa WiFi reset script
 PRODUCT_PACKAGES += \
     wifi_reset
+
+# Shieldtech OSS override
+PRODUCT_PACKAGES += \
+    vendor.nvidia.hardware.shieldtech.inputflinger@2.0-service
