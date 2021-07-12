@@ -16,6 +16,7 @@
 
 TARGET_TEGRA_BT ?= btlinux
 TARGET_SHIELDTECH_INPUTFLINGER := switchroot
+TARGET_SWITCH_VARIANT := erista
 
 ifneq ($(PRODUCT_IS_ATV),true)
 
