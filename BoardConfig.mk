@@ -22,6 +22,9 @@ TARGET_OTA_ASSERT_DEVICE := icosa
 # Bootloader versions
 TARGET_BOARD_INFO_FILE := device/nintendo/icosa_sr/board-info.txt
 
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := device/nintendo/icosa_sr/releasetools
+
 # Manifest
 DEVICE_MANIFEST_FILE += device/nintendo/icosa_sr/manifest.xml
 
