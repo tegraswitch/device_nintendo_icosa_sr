@@ -1,2 +1,0 @@
-on fs
-    exec /vendor/bin/lkm_loader_sr.sh early

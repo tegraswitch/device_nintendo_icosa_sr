@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2021 The LineageOS Project
+# Copyright (C) 2020 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# Inherit some common lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
+LOCAL_PATH := device/nintendo/icosa_sr/vendor/bcm_firmware
+COMMON_BCM_PATH := device/nvidia/tegra-common/vendor/bcm_firmware
 
-# Inherit device configuration for icosa_sr.
-include device/nintendo/icosa_sr/lineage.mk
-$(call inherit-product, device/nintendo/icosa_sr/full_icosa_sr.mk)
+$(call inherit-product, $(COMMON_BCM_PATH)/bcm4354/device-bcm.mk)
 
-PRODUCT_NAME := lineage_icosa_sr
-PRODUCT_DEVICE := icosa_sr
+PRODUCT_PACKAGES += \
+    bcm4356 \
+    brcmfmac4356-pcie
+	brcmfmac4356-pcie.clm_blob
+	brcmfmac4356-pcie.txt

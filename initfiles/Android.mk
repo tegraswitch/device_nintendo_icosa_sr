@@ -15,27 +15,92 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE        := lkm_loader_sr
-LOCAL_SRC_FILES     := lkm_loader_sr.sh
+LOCAL_MODULE        := lkm_loader
+LOCAL_SRC_FILES     := lkm_loader.sh
 LOCAL_MODULE_SUFFIX := .sh
 LOCAL_MODULE_CLASS  := EXECUTABLES
 LOCAL_VENDOR_MODULE := true
 include $(BUILD_PREBUILT)
 
+# fstabs
+
 include $(CLEAR_VARS)
-LOCAL_MODULE               := lkm_sr.rc
-LOCAL_MODULE_CLASS         := ETC
-LOCAL_SRC_FILES            := lkm_sr.rc
-LOCAL_VENDOR_MODULE        := true
-LOCAL_MODULE_RELATIVE_PATH := init
+LOCAL_MODULE        := fstab.icosa
+LOCAL_MODULE_CLASS  := ETC
+LOCAL_SRC_FILES     := fstab.icosa
+LOCAL_VENDOR_MODULE := true
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE               := init.icosa_sr_common.rc
+LOCAL_MODULE        := fstab.icosa_emmc
+LOCAL_MODULE_CLASS  := ETC
+LOCAL_SRC_FILES     := fstab.icosa_emmc
+LOCAL_VENDOR_MODULE := true
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE        := fstab.icosa_recovery
+LOCAL_MODULE_CLASS  := ETC
+LOCAL_SRC_FILES     := fstab.icosa_recovery
+LOCAL_VENDOR_MODULE := true
+include $(BUILD_PREBUILT)
+
+# icosa initfiles
+
+include $(CLEAR_VARS)
+LOCAL_MODULE               := init.icosa.rc
 LOCAL_MODULE_CLASS         := ETC
-LOCAL_SRC_FILES            := init.icosa_sr_common.rc
+LOCAL_SRC_FILES            := init.icosa.rc
 LOCAL_VENDOR_MODULE        := true
-LOCAL_MODULE_RELATIVE_PATH := init
+LOCAL_MODULE_RELATIVE_PATH := init/hw
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE               := init.icosa_common.rc
+LOCAL_MODULE_CLASS         := ETC
+LOCAL_SRC_FILES            := init.icosa_common.rc
+LOCAL_VENDOR_MODULE        := true
+LOCAL_MODULE_RELATIVE_PATH := init/hw
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE               := init.icosa_emmc.rc
+LOCAL_MODULE_CLASS         := ETC
+LOCAL_SRC_FILES            := init.icosa_emmc.rc
+LOCAL_VENDOR_MODULE        := true
+LOCAL_MODULE_RELATIVE_PATH := init/hw
+include $(BUILD_PREBUILT)
+
+# icosa recovery initfiles
+
+include $(CLEAR_VARS)
+LOCAL_MODULE       := init.recovery.icosa.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES    := init.recovery.icosa.rc
+LOCAL_MODULE_PATH  := $(TARGET_ROOT_OUT)
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE       := init.recovery.icosa_emmc.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES    := init.recovery.icosa.rc
+LOCAL_MODULE_PATH  := $(TARGET_ROOT_OUT)
+include $(BUILD_PREBUILT)
+
+# icosa power scripts
+
+include $(CLEAR_VARS)
+LOCAL_MODULE       := power.icosa.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_ODM_MODULE   := true
+LOCAL_SRC_FILES    := power.icosa.rc
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE       := power.icosa_emmc.rc
+LOCAL_MODULE_CLASS := ETC
+LOCAL_ODM_MODULE   := true
+LOCAL_SRC_FILES    := power.icosa.rc
 include $(BUILD_PREBUILT)
 
 # Goes on system due to needing `settings` and `svc`

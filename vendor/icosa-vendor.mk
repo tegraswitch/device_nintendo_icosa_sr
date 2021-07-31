@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2021 The LineageOS Project
+# Copyright (C) 2020 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# Inherit some common lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
+$(call inherit-product, device/nintendo/icosa_sr/vendor/icosa-recovery.mk)
+$(call inherit-product, device/nvidia/t210-common/vendor/t210.mk)
+$(call inherit-product, device/nvidia/tegra-common/vendor/common-by-flags.mk)
+$(call inherit-product, device/nintendo/icosa_sr/vendor/bcm_firmware/bcm.mk)
+$(call inherit-product, device/nvidia/shield-common/vendor/shield-by-flags.mk)
 
-# Inherit device configuration for icosa_sr.
-include device/nintendo/icosa_sr/lineage.mk
-$(call inherit-product, device/nintendo/icosa_sr/full_icosa_sr.mk)
+PRODUCT_PACKAGES += public.libraries
 
-PRODUCT_NAME := lineage_icosa_sr
-PRODUCT_DEVICE := icosa_sr
+# Switch reboot2payload hekate
+PRODUCT_PACKAGES += reboot_payload

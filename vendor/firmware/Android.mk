@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2021 The LineageOS Project
+# Copyright (C) 2020 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# Inherit some common lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
+LOCAL_PATH := $(call my-dir)
+ICOSA_FIRMWARE_PATH := ../../../../../vendor/nvidia/foster/firmware
 
-# Inherit device configuration for icosa_sr.
-include device/nintendo/icosa_sr/lineage.mk
-$(call inherit-product, device/nintendo/icosa_sr/full_icosa_sr.mk)
-
-PRODUCT_NAME := lineage_icosa_sr
-PRODUCT_DEVICE := icosa_sr
+include $(CLEAR_VARS)
+LOCAL_MODULE               := reboot_payload
+LOCAL_SRC_FILES            := $(ICOSA_FIRMWARE_PATH)/hekate.bin
+LOCAL_MODULE_SUFFIX        := .bin
+LOCAL_MODULE_CLASS         := ETC
+LOCAL_MODULE_PATH          := $(TARGET_OUT_VENDOR)/firmware/
+LOCAL_MODULE_TAGS          := optional
+LOCAL_MODULE_OWNER         := nvidia
+include $(BUILD_NVIDIA_PREBUILT)

@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2021 The LineageOS Project
+# Copyright (C) 2018 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# Inherit some common lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
+LOCAL_PATH:= $(call my-dir)
 
-# Inherit device configuration for icosa_sr.
-include device/nintendo/icosa_sr/lineage.mk
-$(call inherit-product, device/nintendo/icosa_sr/full_icosa_sr.mk)
+include $(CLEAR_VARS)
+LOCAL_MODULE        := thermalhal.icosa.xml
+LOCAL_MODULE_TAGS   := optional
+LOCAL_MODULE_CLASS  := ETC
+LOCAL_SRC_FILES     := thermalhal.icosa.xml
+LOCAL_VENDOR_MODULE := true
+include $(BUILD_PREBUILT)
 
-PRODUCT_NAME := lineage_icosa_sr
-PRODUCT_DEVICE := icosa_sr
+include $(CLEAR_VARS)
+LOCAL_MODULE        := thermalhal.icosa_emmc.xml
+LOCAL_MODULE_TAGS   := optional
+LOCAL_MODULE_CLASS  := ETC
+LOCAL_SRC_FILES     := thermalhal.icosa.xml
+LOCAL_VENDOR_MODULE := true
+include $(BUILD_PREBUILT)

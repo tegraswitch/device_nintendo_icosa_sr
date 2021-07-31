@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2021 The LineageOS Project
+# Copyright (C) 2020 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# Inherit some common lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
+TARGET_TEGRA_POWER ?= lineage
 
-# Inherit device configuration for icosa_sr.
-include device/nintendo/icosa_sr/lineage.mk
-$(call inherit-product, device/nintendo/icosa_sr/full_icosa_sr.mk)
+TARGET_INIT_VENDOR_LIB := //device/nintendo/icosa_sr:libinit_icosa_sr
+PRODUCT_VENDOR_PROPERTY_BLACKLIST := \
+    ro.product.vendor.device \
+    ro.product.vendor.model \
+    ro.product.vendor.name \
+    ro.vendor.build.fingerprint
 
-PRODUCT_NAME := lineage_icosa_sr
-PRODUCT_DEVICE := icosa_sr
+PRODUCT_PACKAGES += \
+    init_tegra \
+    resize2fs_static

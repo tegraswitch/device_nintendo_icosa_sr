@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021 The LineageOS Project
+# Copyright (C) 2019 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,12 +14,11 @@
 # limitations under the License.
 #
 
-# Inherit some common lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_tablet_wifionly.mk)
+LOCAL_PATH := $(call my-dir)
 
-# Inherit device configuration for icosa_sr.
-include device/nintendo/icosa_sr/lineage.mk
-$(call inherit-product, device/nintendo/icosa_sr/full_icosa_sr.mk)
-
-PRODUCT_NAME := lineage_icosa_sr
-PRODUCT_DEVICE := icosa_sr
+include $(CLEAR_VARS)
+LOCAL_MODULE               := nvphsd.conf
+LOCAL_MODULE_CLASS         := ETC
+LOCAL_SRC_FILES            := nvphsd.icosa.conf
+LOCAL_ODM_MODULE           := true
+include $(BUILD_PREBUILT)
