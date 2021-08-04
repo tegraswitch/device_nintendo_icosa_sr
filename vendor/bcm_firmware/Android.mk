@@ -16,6 +16,16 @@ LOCAL_PATH := $(call my-dir)
 ICOSA_BCM_PATH := ../../../../../vendor/nvidia/foster/bcm_firmware
 
 include $(CLEAR_VARS)
+LOCAL_MODULE        := BCM4356A3
+LOCAL_SRC_FILES     := CYW4356A3_001.004.009.0092.0095.bin
+LOCAL_MODULE_SUFFIX := .hcd
+LOCAL_MODULE_CLASS  := ETC
+LOCAL_MODULE_PATH   := $(TARGET_OUT_VENDOR)/firmware/brcm
+LOCAL_MODULE_TAGS   := optional
+LOCAL_MODULE_OWNER  := nvidia
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE               := brcmfmac4356-pcie.txt
 LOCAL_SRC_FILES            := $(ICOSA_BCM_PATH)/bcm4356/brcmfmac4356-pcie.txt
 LOCAL_MODULE_CLASS         := ETC

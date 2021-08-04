@@ -112,12 +112,6 @@ PRODUCT_PACKAGES += \
     nvaudio_fx.xml
 endif
 
-# Bluetooth
-ifeq ($(TARGET_TEGRA_BT),btlinux)
-PRODUCT_PACKAGES += \
-    BCM4356A3
-endif
-
 # Device Settings
 PRODUCT_PACKAGES += \
     DeviceSettingsSR
