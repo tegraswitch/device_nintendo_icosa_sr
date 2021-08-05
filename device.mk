@@ -38,12 +38,6 @@ TARGET_TEGRA_BT ?= btlinux
 
 include device/nvidia/t210-common/t210.mk
 
-ifneq ($(PRODUCT_IS_ATV),true)
-
-# System properties
-include $(LOCAL_PATH)/system_prop.mk
-endif
-
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 TARGET_SCREEN_HEIGHT     := 1280
 TARGET_SCREEN_WIDTH      := 720
@@ -52,6 +46,9 @@ PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi mdpi ldpi
 $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-heap.mk)
 
 $(call inherit-product, device/nintendo/icosa_sr/vendor/icosa-vendor.mk)
+
+# Common system properties
+include $(LOCAL_PATH)/system_prop.mk
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -77,12 +74,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml
 
-# ATV specific stuff
-ifeq ($(PRODUCT_IS_ATV),true)
-    PRODUCT_PACKAGES += \
-        android.hardware.tv.input@1.0-impl
-endif
-
 ifneq ($(PRODUCT_IS_ATV),true)
 
 # Set product to tab
@@ -99,6 +90,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.managed_users.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.managed_users.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml
+
 endif
 
 # Audio
