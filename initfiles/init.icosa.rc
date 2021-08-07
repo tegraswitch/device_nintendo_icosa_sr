@@ -17,3 +17,8 @@ import /vendor/etc/init/hw/init.icosa_common.rc
 on fs
     mount_all /vendor/etc/fstab.icosa
     swapon_all /vendor/etc/fstab.icosa
+
+on post-fs-data
+    restorecon_recursive /mnt/vendor/factory
+    mount vfat /dev/block/platform/sdhci-tegra.0/by-name/hos_data /mnt/vendor/factory rw noatime
+    start vendor.jc_setup
