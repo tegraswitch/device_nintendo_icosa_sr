@@ -17,6 +17,9 @@
 TARGET_SHIELDTECH_INPUTFLINGER := switchroot
 TARGET_SWITCH_VARIANT ?= erista
 
+# Common system properties
+include $(LOCAL_PATH)/system_prop.mk
+
 include device/nvidia/shield-common/shield.mk
 
 TARGET_REFERENCE_DEVICE ?= icosa
@@ -46,9 +49,6 @@ PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi mdpi ldpi
 $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-heap.mk)
 
 $(call inherit-product, device/nintendo/icosa_sr/vendor/icosa-vendor.mk)
-
-# Common system properties
-include $(LOCAL_PATH)/system_prop.mk
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
