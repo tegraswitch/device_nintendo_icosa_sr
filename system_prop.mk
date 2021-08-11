@@ -9,7 +9,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Gamestreaming specific properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.gamestream.display.optimize=1
-    
+
 # USB configfs
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.sys.usb.udc=700d0000.xudc \
@@ -20,4 +20,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.tegra.composite.policy=composite-always \
     persist.vendor.tegra.compositor=surfaceflinger \
     persist.vendor.tegra.composite.range=Auto
-    

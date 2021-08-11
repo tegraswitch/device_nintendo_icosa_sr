@@ -56,13 +56,10 @@ on init
     write /sys/kernel/mm/ksm/pages_to_scan 100
     write /sys/kernel/mm/ksm/run 1
 
-    setprop ro.hardware.gatekeeper tlk.tegra
-
     enable btlinux-1.0
     setprop ro.hardware.gatekeeper none
     setprop ro.hardware.sensors stmicro
     setprop sys.io.scheduler deadline
-    setprop persist.vendor.tegra.stb.mode 1
 
 on fs
     # Assuming system takes 1GB runtime RAM, dedeuct it from GPU comptag memory allocation
