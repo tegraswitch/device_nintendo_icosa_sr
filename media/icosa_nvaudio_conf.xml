@@ -85,7 +85,7 @@
     <ctl name="x Stereo ADC MIXL ADC1 Switch" val="0"/>
     <ctl name="x ADC MIC Capture Volume" val="0,0"/>
     <ctl name="x ADC Capture Switch" val="0"/>
-    <ctl name="x ADC IF1 Data Switch" val="0"/>
+    <ctl name="x ADC IF1 Data Switch" val="Normal"/>
 
     <path name="adsp-bypass">
       <!-- No specifc controls now -->
@@ -127,7 +127,7 @@
       <ctl name="x HP L Playback Switch" val="1"/>
       <ctl name="x HP R Playback Switch" val="1"/>
       <ctl name="x OUT MIXL DAC L1 Switch" val="1"/>
-      <ctl name="x OUT MIXL DAC R1 Switch" val="1"/>
+      <ctl name="x OUT MIXR DAC R1 Switch" val="1"/>
       <ctl name="x Stereo DAC MIXL DAC L1 Switch" val="1"/>
       <ctl name="x Stereo DAC MIXR DAC R1 Switch" val="1"/>
       <ctl name="x DAC1 Playback Volume" val="170,170"/>
@@ -139,7 +139,7 @@
     <path name="rt5640-headset">
       <ctl name="x IN1 Boost" val="5"/>
       <ctl name="x Stereo ADC MIXL ADC1 Switch" val="1"/>
-      <ctl name="x ADC IF1 Data Switch" val="2"/>
+      <ctl name="x ADC IF1 Data Switch" val="left copy to right"/>
       <ctl name="x ADC MIC Capture Volume" val="47,0"/>
       <ctl name="x ADC Capture Switch" val="1,0"/>
       <ctl name="x RECMIXL BST1 Switch" val="1"/>
@@ -161,7 +161,7 @@
       <ctl name="x Stereo ADC MIXL ADC1 Switch" val="0"/>
       <!-- <ctl name="x ADC MIC Capture Volume" val="0,0"/> -->
       <!-- <ctl name="x ADC Capture Switch" val="0"/> -->
-      <!-- <ctl name="x ADC IF1 Data Switch" val="0"/> -->
+      <!-- <ctl name="x ADC IF1 Data Switch" val="Normal"/> -->
     </path>
 
     <!-- Enable Speaker, Disable Headphones -->
