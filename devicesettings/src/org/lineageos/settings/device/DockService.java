@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.IWindowManager;
 import android.view.WindowManagerPolicyConstants;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -155,26 +156,45 @@ public class DockService extends Service {
                                 mWindowManager.setForcedDisplaySize(0, 1920, 1080);
                                 mWindowManager.setForcedDisplayDensityForUser(0, 320, UserHandle.USER_CURRENT);
                             } else {
-                                final int externalDisplayId = mDisplayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION)[0].getDisplayId();
+                                android.view.Display[] displays = mDisplayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION);
+                                if (displays == null || displays.length == 0) {
+                                    Log.e(TAG, "Failed to get available displays");
+                                    return;
+                                }
+                                final int externalDisplayId = displays[0].getDisplayId();
                                 final Point displaySize = new Point();
+
+                                for (int i = 0; i < displays.length; i++)
+                                    Log.e(TAG, "Display idx: " + String.valueOf(i) + " id: " + String.valueOf(displays[i].getDisplayId()));
+
+                                // Preserve user/default set built-in display resolution.
                                 mWindowManager.getBaseDisplaySize(0, displaySize);
                                 oldDisplayWidth = displaySize.x;
                                 oldDisplayHeight = displaySize.y;
 
+                                // Scale built-in display to new resolution for smooth transition
                                 mWindowManager.getInitialDisplaySize(externalDisplayId, displaySize);
                                 mWindowManager.setForcedDisplaySize(0, displaySize.x, displaySize.y);
 
-                                // Rescale density based off standard 1920x1080 @ 320dpi
-                                mWindowManager.setForcedDisplayDensityForUser(externalDisplayId, (int) (((float) displaySize.x / 1920) * (float) 320), UserHandle.USER_CURRENT);
+                                // Set new resolution to external display also.
+                                mWindowManager.setForcedDisplaySize(externalDisplayId, displaySize.x, displaySize.y);
+
+                                // Set density based off standard 32" TV (1920x1080 @ 160dpi)
+                                mWindowManager.setForcedDisplayDensityForUser(externalDisplayId, 160, UserHandle.USER_CURRENT);
                             }
                         } else {
                             if (mExternalDisplayConnected) {
                                 if (isTv) {
+                                    // Restore default resolution and density for built-in display
                                     mWindowManager.clearForcedDisplaySize(0);
                                     mWindowManager.clearForcedDisplayDensityForUser(0, UserHandle.USER_CURRENT);
                                 } else {
+                                    // Restore user/default resolution back to built-in display
                                     mWindowManager.setForcedDisplaySize(0, oldDisplayWidth, oldDisplayHeight);
                                 }
+                            } else {
+                                // Restore user/default resolution back to built-in display
+                                mWindowManager.setForcedDisplaySize(0, oldDisplayWidth, oldDisplayHeight);
                             }
                         }
                     } catch (RemoteException ex) {
@@ -187,6 +207,7 @@ public class DockService extends Service {
 
                 case Intent.ACTION_SCREEN_ON:
                     Log.i(TAG, "Screen on");
+
                     DisplayUtils.setInternalDisplayState(!mExternalDisplayConnected);
 
                     // Unlock device automatically if docked and reset res otherwise to work around broken HWC rotation
