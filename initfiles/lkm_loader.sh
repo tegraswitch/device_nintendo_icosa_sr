@@ -23,10 +23,16 @@ early_load()
 /vendor/bin/log -t "$scriptName" -p i "Early Loading SR modules started"
 
 /vendor/bin/log -t "$scriptName" -p i "Early Loading LKM SoC-Vendor modules started"
+
+do_insmod /vendor/lib/modules/pcie-tegra-dw.ko
 do_insmod /vendor/lib/modules/pci-tegra.ko
+
 /vendor/bin/log -t "$scriptName" -p i "Loading LKM nvgpu started"
+
 do_insmod /vendor/lib/modules/nvgpu.ko
+
 /vendor/bin/log -t "$scriptName" -p i "Loading LKM nvgpu completed"
+
 do_insmod /vendor/lib/modules/libahci.ko
 do_insmod /vendor/lib/modules/libahci_platform.ko
 do_insmod /vendor/lib/modules/ahci_tegra.ko
