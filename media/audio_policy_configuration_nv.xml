@@ -48,6 +48,7 @@
         <module name="primary" halVersion="2.0">
             <attachedDevices>
                 <item>Speaker</item>
+                <item>Built-In Mic</item>
             </attachedDevices>
             <defaultOutputDevice>Speaker</defaultOutputDevice>
 
@@ -77,7 +78,7 @@
 
                 <!-- Capture routes -->
                 <route type="mix" sink="primary_input"
-                       sources="BT SCO Headset Mic,Digital Dock HS Mic,AudioIP-In"/>
+                       sources="Built-In Mic,BT SCO Headset Mic,Digital Dock HS Mic,AudioIP-In"/>
             </routes>
 
         </module>
@@ -122,7 +123,7 @@
 
     <!-- Volume section -->
 
-    <xi:include href="ne_audio_policy_volumes.xml"/>
+    <xi:include href="audio_policy_volumes.xml"/>
     <xi:include href="ne_default_volume_tables.xml"/>
 
     <!-- End of Volume section -->
