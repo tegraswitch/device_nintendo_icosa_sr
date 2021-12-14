@@ -114,7 +114,9 @@ PRODUCT_PACKAGES += \
     jc_setup
 
 # Kernel
-ifeq ($(TARGET_PREBUILT_KERNEL),)
+ifneq ($(TARGET_PREBUILT_KERNEL),)
+TARGET_FORCE_PREBUILT_KERNEL := true
+else
 PRODUCT_PACKAGES += \
     cypress-fmac-upstream
 endif

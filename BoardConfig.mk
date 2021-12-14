@@ -40,15 +40,14 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/nintendo/icosa_sr/releasetools
 DEVICE_MANIFEST_FILE += device/nintendo/icosa_sr/manifest.xml
 
 # Kernel
-ifeq ($(TARGET_PREBUILT_KERNEL),)
+ifneq ($(TARGET_PREBUILT_KERNEL),)
+BOARD_VENDOR_KERNEL_MODULES += $(wildcard $(dir $(TARGET_PREBUILT_KERNEL))/*.ko)
+endif
 KERNEL_TOOLCHAIN        := $(shell pwd)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-gnu-6.4.1/bin
 KERNEL_TOOLCHAIN_PREFIX := aarch64-linux-gnu-
 TARGET_KERNEL_SOURCE 	:= kernel/nvidia/linux-4.9_icosa/kernel/kernel-4.9
 TARGET_KERNEL_CONFIG    := tegra_android_defconfig
 BOARD_KERNEL_IMAGE_NAME := Image.gz
-else
-BOARD_VENDOR_KERNEL_MODULES += $(wildcard $(dir $(TARGET_PREBUILT_KERNEL))/*.ko)
-endif
 
 # Recovery
 TARGET_RECOVERY_FSTAB        := device/nintendo/icosa_sr/initfiles/fstab.icosa_recovery
