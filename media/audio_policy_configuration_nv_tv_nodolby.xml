@@ -67,7 +67,7 @@
                        sources="primary_output"/>
                 <!-- Capture routes -->
                 <route type="mix" sink="primary_input"
-                       sources="Built-In Mic,Digital Dock HS Mic"/>
+                       sources="Wired Headset Mic,BT SCO Headset Mic,Digital Dock HS Mic,AudioIP-In"/>
             </routes>
 
         </module>
@@ -83,6 +83,8 @@
                        sources="a2dp output"/>
                 <route type="mix" sink="BT A2DP Speaker"
                        sources="a2dp output"/>
+                <route type="mix" sink="a2dp input"
+                       sources="BT A2DP In"/>
             </routes>
         </module>
 
