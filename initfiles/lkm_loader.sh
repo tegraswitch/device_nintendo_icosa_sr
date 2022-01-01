@@ -213,20 +213,6 @@ do_insmod /vendor/lib/modules/hid-betopff.ko
 # Upstream has these on odm, but we put all modules on vendor
 /vendor/bin/log -t "$scriptName" -p i "Loading LKM Board-ODM modules started"
 
-# Load Sensor modules
-/vendor/bin/log -t "$scriptName" -p i "loading ODM sensor started"
-do_insmod /vendor/lib/modules/nvs.ko
-do_insmod /vendor/lib/modules/nvi-mpu.ko
-do_insmod /vendor/lib/modules/nvi-ak89xx.ko
-do_insmod /vendor/lib/modules/nvi-bmpX80.ko
-do_insmod /vendor/lib/modules/nvs_a3g4250d.ko
-do_insmod /vendor/lib/modules/nvs_ais328dq.ko
-do_insmod /vendor/lib/modules/nvs_bh1730fvc.ko
-do_insmod /vendor/lib/modules/nvs_cm3218.ko
-do_insmod /vendor/lib/modules/nvs_dfsh.ko
-
-/vendor/bin/log -t "$scriptName" -p i "loading ODM sensor completed"
-
 do_insmod /vendor/lib/modules/gps_wake.ko
 /vendor/bin/log -t "$scriptName" -p i "loading comms modules completed"
 
