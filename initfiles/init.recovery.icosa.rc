@@ -19,4 +19,5 @@ import init.recovery.usb.configfs.rc
 on init
     setprop sys.usb.configfs 1
     setprop persist.twrp.rotation 270
+    setprop ro.minui.default_rotation "ROTATION_LEFT"
     write /sys/bus/platform/drivers/tegra-reboot2payload/r2p/default_payload_ready 1
