@@ -1,4 +1,3 @@
-#
 # Copyright (C) 2021 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/full_icosa_sr.mk \
-    $(LOCAL_DIR)/lineage_icosa_sr.mk \
-    $(LOCAL_DIR)/twrp_icosa_sr.mk
+# Inherit some common twrp stuff.
+$(call inherit-product, vendor/twrp/config/common.mk)
+
+# Inherit device configuration for foster.
+include device/nintendo/icosa_sr/lineage.mk
+$(call inherit-product, device/nintendo/icosa_sr/full_icosa_sr.mk)
+
+PRODUCT_NAME := twrp_icosa_sr
+PRODUCT_DEVICE := icosa_sr
