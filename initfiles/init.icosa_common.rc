@@ -170,6 +170,12 @@ service vendor.jc_setup /vendor/bin/jc_setup.sh /mnt/vendor/factory/switchroot/j
     disabled
     oneshot
 
+# Reset FB to workaround SLD coldboot issues
+on property:init.svc.bootanim=running 
+    write /sys/class/graphics/fb0/blank 1
+    write /sys/class/graphics/fb0/state 0
+    write /sys/class/graphics/fb0/blank 0
+
 # Ease any memory pressure based on power hints
 on property:vendor.powerhal.reclaim_compact_mem=*
     # Purge inode, dentry and page caches
