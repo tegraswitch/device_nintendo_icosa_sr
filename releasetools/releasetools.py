@@ -19,10 +19,11 @@ import common
 import re
 import os
 
-APP_PART     = '/dev/block/by-name/APP'
-DTB_PART     = '/dev/block/by-name/DTB'
-VENDOR_PART  = '/dev/block/by-name/vendor'
-ICOSA_SD     = '/external_sd/switchroot/android/'
+APP_PART      = '/dev/block/by-name/APP'
+DTB_PART      = '/dev/block/by-name/DTB'
+RECOVERY_PART = '/dev/block/by-name/SOS'
+VENDOR_PART   = '/dev/block/by-name/vendor'
+ICOSA_SD      = '/external_sd/switchroot/android/'
 
 PUBLIC_KEY_PATH     = '/sys/devices/7000f800.efuse/7000f800.efuse:efuse-burn/public_key'
 FUSED_PATH          = '/sys/devices/7000f800.efuse/7000f800.efuse:efuse-burn/odm_production_mode'
@@ -87,6 +88,7 @@ def AddBootloaderFlash(info, input_zip):
   info.script.AppendExtra('              package_extract_file("firmware-update/coreboot.rom", "' + ICOSA_SD + 'coreboot.rom");')
   info.script.AppendExtra('              package_extract_file("firmware-update/common.scr", "' + ICOSA_SD + 'common.scr");')
   info.script.AppendExtra('              package_extract_file("firmware-update/" + getprop(ro.hardware) + ".scr", "' + ICOSA_SD + 'boot.scr");')
+  info.script.AppendExtra('              package_extract_file("firmware-update/twrp.img", "' + RECOVERY_PART + '");')
   info.script.AppendExtra('            ),')
   info.script.AppendExtra('            (')
   info.script.AppendExtra('              ui_print("Unknown public key " + read_file("' + PUBLIC_KEY_PATH + '") + " for icosa detected.");')
