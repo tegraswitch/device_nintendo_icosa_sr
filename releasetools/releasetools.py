@@ -19,11 +19,12 @@ import common
 import re
 import os
 
-APP_PART      = '/dev/block/by-name/APP'
-DTB_PART      = '/dev/block/by-name/DTB'
-RECOVERY_PART = '/dev/block/by-name/SOS'
-VENDOR_PART   = '/dev/block/by-name/vendor'
-ICOSA_SD      = '/external_sd/switchroot/android/'
+APP_PART        = '/dev/block/by-name/APP'
+DTB_PART        = '/dev/block/by-name/DTB'
+RECOVERY_PART   = '/dev/block/by-name/SOS'
+VENDOR_PART     = '/dev/block/by-name/vendor'
+ICOSA_FILES     = '/external_sd/switchroot/android/'
+ICOSA_BL_CONFIG = '/external_sd/bootloader/ini/'
 
 PUBLIC_KEY_PATH     = '/sys/devices/7000f800.efuse/7000f800.efuse:efuse-burn/public_key'
 FUSED_PATH          = '/sys/devices/7000f800.efuse/7000f800.efuse:efuse-burn/odm_production_mode'
@@ -37,8 +38,8 @@ ICOSA_BL_VERSION    = '2020.04-03755-gf4d532d00d-rev3'
 
 def FullOTA_PostValidate(info):
   if 'INSTALL/bin/resize2fs_static' in info.input_zip.namelist():
-    info.script.AppendExtra('run_program("/tmp/install/bin/resize2fs_static", "' + APP_PART + '");');
-    info.script.AppendExtra('run_program("/tmp/install/bin/resize2fs_static", "' + VENDOR_PART + '");');
+    info.script.AppendExtra('run_program("/tmp/install/bin/resize2fs_static", "' + APP_PART + '");')
+    info.script.AppendExtra('run_program("/tmp/install/bin/resize2fs_static", "' + VENDOR_PART + '");')
 
 def FullOTA_Assertions(info):
   if 'RADIO/coreboot.rom' in info.input_zip.namelist():
@@ -85,9 +86,12 @@ def AddBootloaderFlash(info, input_zip):
   info.script.AppendExtra('            read_file("' + PUBLIC_KEY_PATH + '") == "' + ICOSA_PUBLIC_KEY + '",')
   info.script.AppendExtra('            (')
   info.script.AppendExtra('              ui_print("Flashing updated bootloader for fused " + getprop(ro.hardware));')
-  info.script.AppendExtra('              package_extract_file("firmware-update/coreboot.rom", "' + ICOSA_SD + 'coreboot.rom");')
-  info.script.AppendExtra('              package_extract_file("firmware-update/common.scr", "' + ICOSA_SD + 'common.scr");')
-  info.script.AppendExtra('              package_extract_file("firmware-update/" + getprop(ro.hardware) + ".scr", "' + ICOSA_SD + 'boot.scr");')
+  info.script.AppendExtra('              package_extract_file("firmware-update/coreboot.rom", "' + ICOSA_FILES + 'coreboot.rom");')
+  info.script.AppendExtra('              package_extract_file("firmware-update/common.scr", "' + ICOSA_FILES + 'common.scr");')
+  info.script.AppendExtra('              package_extract_file("firmware-update/" + getprop(ro.hardware) + ".scr", "' + ICOSA_FILES + 'boot.scr");')
+  info.script.AppendExtra('              package_extract_file("firmware-update/bootlogo_android.bmp", "' + ICOSA_FILES + 'bootlogo_android.bmp");')
+  info.script.AppendExtra('              package_extract_file("firmware-update/icon_android.bmp", "' + ICOSA_FILES + 'icon_android.bmp");')
+  info.script.AppendExtra('              package_extract_file("firmware-update/00-android.ini", "' + ICOSA_BL_CONFIG + '00-android.ini");')
   info.script.AppendExtra('              package_extract_file("firmware-update/twrp.img", "' + RECOVERY_PART + '");')
   info.script.AppendExtra('            ),')
   info.script.AppendExtra('            (')
