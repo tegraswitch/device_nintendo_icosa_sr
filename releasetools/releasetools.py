@@ -90,7 +90,7 @@ def AddBootloaderFlash(info, input_zip):
   info.script.AppendExtra('              package_extract_file("firmware-update/common.scr", "' + ICOSA_FILES + 'common.scr");')
   info.script.AppendExtra('              package_extract_file("firmware-update/" + getprop(ro.hardware) + ".scr", "' + ICOSA_FILES + 'boot.scr");')
   info.script.AppendExtra('              package_extract_file("firmware-update/bootlogo_android.bmp", "' + ICOSA_FILES + 'bootlogo_android.bmp");')
-  info.script.AppendExtra('              package_extract_file("firmware-update/icon_android.bmp", "' + ICOSA_FILES + 'icon_android.bmp");')
+  info.script.AppendExtra('              package_extract_file("firmware-update/icon_android_hue.bmp", "' + ICOSA_FILES + 'icon_android_hue.bmp");')
   info.script.AppendExtra('              package_extract_file("firmware-update/00-android.ini", "' + ICOSA_BL_CONFIG + '00-android.ini");')
   info.script.AppendExtra('              package_extract_file("firmware-update/twrp.img", "' + RECOVERY_PART + '");')
   info.script.AppendExtra('            ),')
