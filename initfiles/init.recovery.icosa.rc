@@ -16,6 +16,12 @@ import init.recovery.lkm.rc
 import init.recovery.xusb.configfs.usb.rc
 import init.recovery.usb.configfs.rc
 
+on early-init
+    # TWRP doesn't have bootanim, so reset fb on early-init
+    write /sys/class/graphics/fb0/blank 1
+    write /sys/class/graphics/fb0/state 0
+    write /sys/class/graphics/fb0/blank 0
+
 on init
     setprop sys.usb.configfs 1
     setprop persist.twrp.rotation 270
