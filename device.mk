@@ -27,7 +27,6 @@ TARGET_TEGRA_VARIANT    ?= common
 
 TARGET_TEGRA_APTX     ?= true
 TARGET_TEGRA_AUDIO    ?= nvaudio
-TARGET_TEGRA_CAMERA   ?= nvcamera
 TARGET_TEGRA_CEC      ?= nvhdmi
 TARGET_TEGRA_KERNEL   ?= 49
 TARGET_TEGRA_KEYSTORE ?= nvkeystore
