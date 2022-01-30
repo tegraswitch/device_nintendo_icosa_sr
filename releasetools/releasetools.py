@@ -34,7 +34,7 @@ MODE_UNFUSED        = '0x00000000\n'
 MODE_FUSED          = '0x00000001\n'
 
 ICOSA_PUBLIC_KEY    = '0x7e39e100d1135918ceedfe5d66e66496eed21ecb3486d72095cc0b7c60b8bd4f\n'
-ICOSA_BL_VERSION    = '2020.04-03755-gf4d532d00d-rev4'
+ICOSA_BL_VERSION    = '2020.04-26-g53ff5d2195-593ce326-rev4'  # $u-boot_revision-$coreboot_hash-$scrrev
 
 def FullOTA_PostValidate(info):
   if 'INSTALL/bin/resize2fs_static' in info.input_zip.namelist():
