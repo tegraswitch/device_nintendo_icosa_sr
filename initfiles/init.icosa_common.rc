@@ -57,6 +57,7 @@ on init
     write /sys/kernel/mm/ksm/run 1
 
     enable btlinux-1.0
+    setprop ro.boot.secureos none
     setprop ro.hardware.gatekeeper tlk.tegra
     setprop ro.hardware.sensors stmicro
     setprop sys.io.scheduler deadline
