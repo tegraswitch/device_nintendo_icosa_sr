@@ -17,8 +17,9 @@
 TARGET_SHIELDTECH_INPUTFLINGER := switchroot
 TARGET_SWITCH_VARIANT ?= erista
 
-# Common system properties
+# Properties
 include $(LOCAL_PATH)/system_prop.mk
+include $(LOCAL_PATH)/vendor_prop.mk
 
 include device/nvidia/shield-common/shield.mk
 
