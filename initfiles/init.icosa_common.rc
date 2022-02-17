@@ -16,20 +16,6 @@ import /vendor/etc/init/hw/init.lkm.rc
 import /vendor/etc/init/hw/init.tegra.rc
 import /vendor/etc/init/hw/init.t210.rc
 
-service charger /charger
-    class charger
-    seclabel u:r:healthd:s0
-    group input
-
-on charger
-    mount ext4 /dev/block/platform/sdhci-tegra.3/by-name/APP /system wait ro
-    setprop persist.sys.usb.config mtp
-    write /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/enable 1
-    write /sys/devices/system/cpu/cpuquiet/current_governor runnable
-    write /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/no_lp -1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor powersave
-
 on early-init
     # Disable Transparent HUGEPAGE
     write /sys/kernel/mm/transparent_hugepage/enabled "never"
