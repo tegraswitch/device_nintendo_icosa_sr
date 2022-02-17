@@ -14,6 +14,10 @@
 
 TARGET_TEGRA_POWER ?= lineage
 
+# Boot Animation
+TARGET_SCREEN_HEIGHT     := 1280
+TARGET_SCREEN_WIDTH      := 720
+
 TARGET_INIT_VENDOR_LIB := //device/nintendo/icosa_sr:libinit_icosa_sr
 PRODUCT_VENDOR_PROPERTY_BLACKLIST := \
     ro.product.vendor.device \

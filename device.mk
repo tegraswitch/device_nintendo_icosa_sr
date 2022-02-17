@@ -42,8 +42,6 @@ TARGET_TEGRA_BT ?= btlinux
 include device/nvidia/t210-common/t210.mk
 
 PRODUCT_AAPT_PREF_CONFIG := hdpi
-TARGET_SCREEN_HEIGHT     := 1280
-TARGET_SCREEN_WIDTH      := 720
 PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi mdpi ldpi
 
 $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-heap.mk)
