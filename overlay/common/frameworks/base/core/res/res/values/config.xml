@@ -27,12 +27,7 @@
          [associated radio-type],[priority]  -->
     <string-array translatable="false" name="networkAttributes">
         <item>"wifi,1,1,2,-1,true"</item>
-        <item>"mobile,0,0,0,-1,true"</item>
-        <item>"mobile_mms,2,0,4,60000,true"</item>
-        <item>"mobile_supl,3,0,4,60000,true"</item>
-        <item>"mobile_dun,4,0,4,60000,true"</item>
         <item>"bluetooth,7,7,1,-1,true"</item>
-        <item>"mobile_hipri,5,0,5,60000,true"</item>
         <item>"ethernet,9,9,3,-1,true"</item>
     </string-array>
 
@@ -51,11 +46,6 @@
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
-
-    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
-         it causes the device to wake up.
-         The default is false. -->
-    <bool name="config_lidControlsSleep">true</bool>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
@@ -88,34 +78,6 @@
         <item>250</item>
     </integer-array>
 
-    <!-- Array of output values for button backlight corresponding to the LUX values
-         in the config_autoBrightnessLevels array.  This array should have size one greater
-         than the size of the config_autoBrightnessLevels array.
-         This must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessButtonBacklightValues">
-        <item>75</item>
-        <item>90</item>
-        <item>140</item>
-        <item>190</item>
-        <item>240</item>
-        <item>250</item>
-        <item>255</item>
-    </integer-array>
-
-    <!-- Array of output values for keyboard backlight corresponding to the LUX values
-         in the config_autoBrightnessLevels array.  This array should have size one greater
-         than the size of the config_autoBrightnessLevels array.
-         This must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessKeyboardBacklightValues">
-        <item>75</item>
-        <item>60</item>
-        <item>40</item>
-        <item>20</item>
-        <item>10</item>
-        <item>5</item>
-        <item>0</item>
-    </integer-array>
-
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
@@ -126,21 +88,6 @@
 
     <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
     <integer name="config_shutdownBatteryTemperature">600</integer>
-
-    <!-- Configure mobile tcp buffer sizes in the form:
-         rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
-         If no value is found for the rat-name in use, the system default will be applied.
-    -->
-    <string-array name="config_mobile_tcp_buffers">
-        <item>gprs:4092,8760,48000,4096,8760,48000</item>
-        <item>edge:4093,26280,70800,4096,16384,70800</item>
-        <item>umts:4094,87380,1220608,4096,16384,1220608</item>
-        <item>hsdpa:4094,87380,1220608,4096,16384,1220608</item>
-        <item>hsupa:4094,87380,1220608,4096,16384,1220608</item>
-        <item>hspa:4094,87380,1220608,4096,16384,1220608</item>
-        <item>hspap:4094,87380,1220608,4096,16384,1220608</item>
-        <item>lte:524288,1048576,2097152,262144,524288,1048576</item>
-    </string-array>
 
     <!-- Use proper headphone jack detection -->
     <bool name="config_useDevInputEventForAudioJack">true</bool>
