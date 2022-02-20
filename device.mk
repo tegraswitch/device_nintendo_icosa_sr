@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-TARGET_SHIELDTECH_INPUTFLINGER := switchroot
+#TARGET_SHIELDTECH_INPUTFLINGER := switchroot
 TARGET_SWITCH_VARIANT ?= erista
 
 # Properties
@@ -180,5 +180,5 @@ PRODUCT_PACKAGES += \
     wifi_scan_config.conf
 
 # Shieldtech OSS override
-PRODUCT_PACKAGES += \
-    vendor.nvidia.hardware.shieldtech.inputflinger@2.0-service
+#PRODUCT_PACKAGES += \
+#    vendor.nvidia.hardware.shieldtech.inputflinger@2.0-service
