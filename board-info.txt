@@ -1,1 +1,1 @@
-require version-bootloader=2020.04-26-g53ff5d2195-593ce326-rev4
+require version-bootloader=2020.04-26-g53ff5d2195-593ce326-rev5
